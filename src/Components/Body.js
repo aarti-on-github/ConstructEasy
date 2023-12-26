@@ -4,82 +4,72 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { convertLength } from '@mui/material/styles/cssUtils';
 
 export default function Body() {
   return (
     <>
-    <Card sx={{ maxWidth: 345 }}>
+    <div className='cards'>
+    <Card sx={{ maxWidth: 345,marginTop:'2rem',marginBottom:'2rem'}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image='/img2.png'
+          height="230"
+          image='/img1.png'
           alt="green iguana"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Attendance Management
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
-     <Card sx={{ maxWidth: 345 }}>
+
+    </div>
+     <Card sx={{ maxWidth: 345,marginTop:'2rem',marginBottom:'2rem' }}>
      <CardActionArea>
        <CardMedia
          component="img"
-         height="140"
-         image="/img3.png"
+         height="230"
+         image="/img4.png"
          alt="green iguana"
        />
        <CardContent>
          <Typography gutterBottom variant="h5" component="div">
-           Lizard
-         </Typography>
-         <Typography variant="body2" color="text.secondary">
-           Lizards are a widespread group of squamate reptiles, with over 6,000
-           species, ranging across all continents except Antarctica
+           Worker Profile
          </Typography>
        </CardContent>
      </CardActionArea>
    </Card>
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345,marginTop:'2rem',marginBottom:'2rem'}}>
     <CardActionArea>
       <CardMedia
         component="img"
-        height="140"
-        image="/img1.png"
+        height="238"
+        image="/img3.png"
         alt="green iguana"
-      />
+        sx={{backgroundSize:convertLength}}
+        />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          Manage Worker
         </Typography>
       </CardContent>
     </CardActionArea>
   </Card>
-   <Card sx={{ maxWidth: 345 }}>
+
+   <Card sx={{ maxWidth: 345 ,marginTop:'2rem',marginBottom:'2rem'}}>
    <CardActionArea>
      <CardMedia
        component="img"
-       height="140"
-       image="/img4.png"
-       alt="green iguana"
+       height="230"
+       image="/img2.png"
+       alt="   sx=green iguana"
      />
      <CardContent>
        <Typography gutterBottom variant="h5" component="div">
-         Lizard
-       </Typography>
-       <Typography variant="body2" color="text.secondary">
-         Lizards are a widespread group of squamate reptiles, with over 6,000
-         species, ranging across all continents except Antarctica
+         Add work location
        </Typography>
      </CardContent>
    </CardActionArea>
