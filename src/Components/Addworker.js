@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 
 function Addworker() {
   return (
-    <div>
+    <div className='addw'>
       <Navbar/>
       <h2>Worker Details</h2>
     <form>

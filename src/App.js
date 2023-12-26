@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import ScrollTop from './Components/ScrollTop'
 import Addworker from './Components/Addworker';
+import WorkerDetails from './Components/WorkerDetails';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
     
       <Route path='/'element={<ScrollTop/>}/>
       <Route path='/manageworker'element={<Addworker/>}/>
+      <Route path='/workerdetails'element={<WorkerDetails/>}/>
 
      </Routes>
     </BrowserRouter>
