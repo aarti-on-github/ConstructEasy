@@ -2,11 +2,11 @@ import React from 'react'
 import ScrollTop from './ScrollTop'
 import Navbar from './Navbar'
 
-function Addworker() {
+function UpdateWorker() {
   return (
     <div className='addw'>
       <Navbar/>
-      <h3>Add worker infomation</h3>
+      <h3>Update Worker Profile</h3>
     <form>
      <label for="profilePhoto">Profile Photo</label>
     <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*"/>
@@ -40,4 +40,4 @@ function Addworker() {
   )
 }
 
-export default Addworker
+export default UpdateWorker
