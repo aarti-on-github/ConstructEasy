@@ -50,7 +50,7 @@ function ScrollTop(props) {
 
   return (
     <>
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
@@ -101,7 +101,7 @@ function ScrollTop(props) {
         <Body/>
       </Box>
     </Box>
-    <div style={{padding: '0rem 1rem'}}>
+    <div style={{width: '300px', margin: '0 auto'}}>
       <MapHome/>
     </div>
     </>
