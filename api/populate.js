@@ -1,5 +1,5 @@
-const Team = require("./models/Team");
-const User = require("./models/User");
+const Worker = require("./models/Worker");
+const WorkLocation = require("./models/WorkLocation");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -8,33 +8,69 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-const dummyData = async () => {
-  // Create teams
-  const team1 = await Team.create({ name: "Team A", team_no: 1 });
-  const team2 = await Team.create({ name: "Team B", team_no: 2 });
+const createDummyData = async () => {
+  try {
+    // Dummy WorkLocations
+    const workLocationsData = [
+      {
+        name: "Office A",
+        address: "123 Main St",
+        longitude: -73.987456,
+        latitude: 40.748817,
+      },
+      {
+        name: "Office B",
+        address: "456 Oak St",
+        longitude: -74.012345,
+        latitude: 40.712345,
+      },
+      // Add more WorkLocations as needed
+    ];
 
-  // Create users
-  await User.create({
-    name: "User 1",
-    email: "user1@example.com",
-    password: "password1",
-    team_id: team1._id,
-  });
-  await User.create({
-    name: "User 2",
-    email: "user2@example.com",
-    password: "password2",
-    team_id: team1._id,
-  });
-  await User.create({
-    name: "User 3",
-    email: "user3@example.com",
-    password: "password3",
-    team_id: team2._id,
-  });
+    let workLocations = [];
+    for (let i = 0; i < workLocationsData.length; i++) {
+      const workLocation = new WorkLocation(workLocationsData[i]);
+      await workLocation.save();
+      workLocations.push(workLocation);
+    }
 
-  console.log("Dummy data created successfully");
+    // Dummy Workers
+    const workersData = [
+      {
+        name: "John Doe",
+        age: 30,
+        gender: "Male",
+        address: "789 Elm St",
+        contact: 1234567890,
+        salary: 50000,
+        profile_pic: "john_doe.jpg",
+        work_location: workLocations[0]._id,
+      },
+      {
+        name: "Jane Smith",
+        age: 25,
+        gender: "Female",
+        address: "101 Pine St",
+        contact: 9876543210,
+        salary: 60000,
+        profile_pic: "jane_smith.jpg",
+        work_location: workLocations[1]._id,
+      },
+      // Add more Workers as needed
+    ];
+
+    for (let i = 0; i < workersData.length; i++) {
+      const worker = new Worker(workersData[i]);
+      await worker.save();
+    }
+
+    console.log("Dummy data added successfully.");
+  } catch (error) {
+    console.error("Error adding dummy data:", error);
+  } finally {
+    mongoose.disconnect();
+  }
 };
 
-// Run the dummy data function
-dummyData();
+// Call the function to add dummy data
+createDummyData();
