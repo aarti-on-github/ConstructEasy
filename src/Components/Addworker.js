@@ -1,117 +1,145 @@
-import React from 'react'
-import ScrollTop from './ScrollTop'
-import Navbar from './Navbar'
-import { useState } from 'react';
-import {Navigate} from 'react-router-dom'
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import Navbar from './Navbar';
+import ScrollTop from './ScrollTop';
+import axios from 'axios';
+import BACKEND_URL from '../backend';
 
-function Addworker() {
-
+function AddWorker() {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [profile_pic, setProfile_pic] = useState('');
+  const [gender, setGender] = useState('Male');
+  const [profilePic, setProfilePic] = useState(null);
   const [salary, setSalary] = useState('');
   const [address, setAddress] = useState('');
   const [contact, setContact] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const formDataToObj = (formData) => {
-    const obj = {};
-    formData.forEach((value, key) => {
-      obj[key] = value;
-    });
-    return obj;
+  const handleFileChange = (event) => {
+    setProfilePic(event.target.files[0]);
   };
 
-  async function Addnewworker(ev) {
-    const data = new FormData();
-     data.set('name', name);
-     data.set('age', age);
-     data.set('salary', salary);
-     data.set('profile_pic', profile_pic[0]);
-     data.set('gender', gender);
-     data.set('contact', contact);
-     data.set('address', address);
-     const dataObj = formDataToObj(data);
-    ev.preventDefault();
-    const response = await fetch(`http://localhost:5000/api/addWorker`, {
-      method: 'POST',
-      body: JSON.stringify(dataObj),
-      credentials: 'include',
-    });
-    if (response.ok) {
-      setRedirect(true);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('age', age);
+      formData.append('gender', gender);
+      formData.append('profile_pic', profilePic);
+      formData.append('salary', salary);
+      formData.append('address', address);
+      formData.append('contact', contact);
+
+      const response = await axios.post(`${BACKEND_URL}/api/addWorker`, formData);
+      if (response.status === 200) {
+        alert('Worker added successfully');
+        setRedirect(true);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Error Adding Worker');
+    } finally {
+      setLoading(false);
     }
-  }
+  };
+
   if (redirect) {
-    return <Navigate to={'/'} />
+    return <Navigate to={'/'} />;
   }
+
   return (
-    <div className='addw'>
+    <div className="addw">
       <Navbar />
-      <h3>Add worker infomation</h3>
-      <form onSubmit={(e)=>Addnewworker(e)}>
-        <label for="profilePhoto">Profile Photo</label>
-        <input type="file"
+      {/* <ScrollTop /> */}
+      <h3>Add Worker Information</h3>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="profilePhoto">Profile Photo</label>
+        <input
+          type="file"
           id="profilePhoto"
-          onChange={ev => setProfile_pic(ev.target.files)}
-          accept="image/*" />
+          onChange={handleFileChange}
+          accept="image/*"
+          required
+        />
 
-        <label for="name">Name</label>
-        <input type="text" id="name" value={name}
-          onChange={ev => setName(ev.target.value)}
-          required />
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(ev) => setName(ev.target.value)}
+          required
+        />
 
-        <label for="age">Age</label>
-        <input type="number"
+        <label htmlFor="age">Age</label>
+        <input
+          type="number"
           id="age"
           value={age}
-          onChange={ev => setAge(ev.target.value)}
-          required />
+          onChange={(ev) => setAge(ev.target.value)}
+          required
+        />
 
-        <label for="gender">Gender</label>
+        <label htmlFor="gender">Gender</label>
         <select
           id="gender"
           name="gender"
           value={gender}
-          onChange={ev => setGender(ev.target.value)}
-          required>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
+          onChange={(ev) => setGender(ev.target.value)}
+          required
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
         </select>
 
-        <label for="address" id='addres'>Address</label>
+        <label htmlFor="address">Address</label>
         <textarea
           id="address"
           name="address"
           rows="4"
           value={address}
-          onChange={ev => setAddress(ev.target.value)}
-          required></textarea>
+          onChange={(ev) => setAddress(ev.target.value)}
+          required
+        ></textarea>
 
-        <label for="phoneNumber">Phone Number</label>
-        <input type="tel"
+        <label htmlFor="phoneNumber">Phone Number</label>
+        <input
+          type="tel"
           id="phoneNumber"
           name="phoneNumber"
           pattern="[0-9]{10}"
           value={contact}
-          onChange={ev => setContact(ev.target.value)}
-          required />
+          onChange={(ev) => setContact(ev.target.value)}
+          required
+        />
 
-        <label for="salary">Salary</label>
-        <input type="number"
+        <label htmlFor="salary">Salary</label>
+        <input
+          type="number"
           id="salary"
           name="salary"
           value={salary}
-          onChange={ev => setSalary(ev.target.value)}
-          required />
+          onChange={(ev) => setSalary(ev.target.value)}
+          required
+        />
 
-        <button type="submit">Submit</button>
+        {loading ? (
+          <button type="button" disabled>
+            Submitting...
+          </button>
+        ) : (
+          <button type="submit">Submit</button>
+        )}
 
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
     </div>
-  )
+  );
 }
 
-export default Addworker
+export default AddWorker;
