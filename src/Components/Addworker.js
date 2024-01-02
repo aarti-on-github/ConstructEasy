@@ -6,31 +6,39 @@ import {Navigate} from 'react-router-dom'
 
 function Addworker() {
 
-  const [name, setname] = useState('');
-  const [age, setage] = useState('');
-  const [gender, setgender] = useState('');
-  const [files, setFiles] = useState('');
-  const [salary, setsalary] = useState('');
-  const [add, setadd] = useState('');
-  const [phno, setphno] = useState('');
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [profile_pic, setProfile_pic] = useState('');
+  const [salary, setSalary] = useState('');
+  const [address, setAddress] = useState('');
+  const [contact, setContact] = useState('');
   const [redirect, setRedirect] = useState(false);
+
+  const formDataToObj = (formData) => {
+    const obj = {};
+    formData.forEach((value, key) => {
+      obj[key] = value;
+    });
+    return obj;
+  };
 
   async function Addnewworker(ev) {
     const data = new FormData();
-    data.set('name', setname);
-    data.set('age', setage);
-    data.set('salary', setsalary);
-    data.set('file', files[0]);
-    data.set('gender', setgender);
-    data.set('phno', setphno);
-    data.set('add', setadd);
+     data.set('name', name);
+     data.set('age', age);
+     data.set('salary', salary);
+     data.set('profile_pic', profile_pic[0]);
+     data.set('gender', gender);
+     data.set('contact', contact);
+     data.set('address', address);
+     const dataObj = formDataToObj(data);
     ev.preventDefault();
-    const response = await fetch(`http://localhost:5000/addWorker`, {
+    const response = await fetch(`http://localhost:5000/api/addWorker`, {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(dataObj),
       credentials: 'include',
     });
-    console.log('Name:', ev.target.name.value);
     if (response.ok) {
       setRedirect(true);
     }
@@ -46,19 +54,19 @@ function Addworker() {
         <label for="profilePhoto">Profile Photo</label>
         <input type="file"
           id="profilePhoto"
-          onChange={ev => setFiles(ev.target.files)}
+          onChange={ev => setProfile_pic(ev.target.files)}
           accept="image/*" />
 
         <label for="name">Name</label>
         <input type="text" id="name" value={name}
-          onChange={ev => setname(ev.target.value)}
+          onChange={ev => setName(ev.target.value)}
           required />
 
         <label for="age">Age</label>
         <input type="number"
           id="age"
           value={age}
-          onChange={ev => setage(ev.target.value)}
+          onChange={ev => setAge(ev.target.value)}
           required />
 
         <label for="gender">Gender</label>
@@ -66,7 +74,7 @@ function Addworker() {
           id="gender"
           name="gender"
           value={gender}
-          onChange={ev => setgender(ev.target.value)}
+          onChange={ev => setGender(ev.target.value)}
           required>
           <option value="male">Male</option>
           <option value="female">Female</option>
@@ -78,8 +86,8 @@ function Addworker() {
           id="address"
           name="address"
           rows="4"
-          value={add}
-          onChange={ev => setadd(ev.target.value)}
+          value={address}
+          onChange={ev => setAddress(ev.target.value)}
           required></textarea>
 
         <label for="phoneNumber">Phone Number</label>
@@ -87,8 +95,8 @@ function Addworker() {
           id="phoneNumber"
           name="phoneNumber"
           pattern="[0-9]{10}"
-          value={phno}
-          onChange={ev => setphno(ev.target.value)}
+          value={contact}
+          onChange={ev => setContact(ev.target.value)}
           required />
 
         <label for="salary">Salary</label>
@@ -96,7 +104,7 @@ function Addworker() {
           id="salary"
           name="salary"
           value={salary}
-          onChange={ev => setsalary(ev.target.value)}
+          onChange={ev => setSalary(ev.target.value)}
           required />
 
         <button type="submit">Submit</button>

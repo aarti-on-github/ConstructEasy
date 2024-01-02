@@ -36,12 +36,16 @@ router.get("/getAllWorker", async (req, res) => {
 router.post("/addWorker", async (req, res) => {
   try {
     const newWorker = new Worker(req.body);
+    console.log(req.body);
     const savedWorker = await newWorker.save();
     res.status(200).json(savedWorker);
+    
+   
   } catch (err) {
     console.log(err);
     res.status(500).json(String(err));
   }
+  
 });
 
 router.get("/getWorker/:id", async (req, res) => {
