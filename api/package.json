@@ -8,7 +8,7 @@
     "start": "node index.js",
     "build": "npm install"
   },
-   "engines": {
+  "engines": {
     "node": "18.x"
   },
   "author": "",

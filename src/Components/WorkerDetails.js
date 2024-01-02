@@ -45,7 +45,9 @@ function WorkerDetails() {
     </div>
   </div>
     </div>
-
+    <div className='add'>
+    <button>Add New Worker</button>
+  </div>
   </div>
   )
 }
