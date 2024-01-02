@@ -75,8 +75,11 @@ router.get("/getWorker/:id", async (req, res) => {
   }
 });
 
-router.put("/updateWorker/:id", async (req, res) => {
+router.put("/updateWorker/:id", upload.single("profile_pic"),async (req, res) => {
   try {
+    if(req.file){
+      req.body.profile_pic = req.file.filename;
+    }
     const updatedWorker = await Worker.findByIdAndUpdate(
       req.params.id,
       {

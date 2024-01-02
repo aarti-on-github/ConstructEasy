@@ -17,7 +17,7 @@ function App() {
       <Route path='/manageworker'element={<Addworker/>}/>
       <Route path='/workerdetails'element={<WorkerDetails/>}/>
       <Route path='/addWorkLocation' element={<AddWorkLocation/>}/>
-      <Route path='/updateWorker'element={<UpdateWorker/>}/>
+      <Route path='/updateWorker/:workerId'element={<UpdateWorker/>}/>
       <Route path='/takeAttendence'element={<Camera/>}/>
      </Routes>
     </BrowserRouter>
