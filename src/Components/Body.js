@@ -65,21 +65,24 @@ export default function Body() {
   </Card>
   </Link>
 
-   <Card sx={{ maxWidth: 345 ,marginTop:'2rem',marginBottom:'2rem'}}>
-   <CardActionArea>
-     <CardMedia
-       component="img"
-       height="230"
-       image="/img2.png"
-       alt="   sx=green iguana"
-     />
-     <CardContent>
-       <Typography gutterBottom variant="h5" component="div">
-         Add work location
-       </Typography>
-     </CardContent>
-   </CardActionArea>
- </Card>
+    <Link to="/addWorkLocation">
+      <Card sx={{ maxWidth: 345 ,marginTop:'2rem',marginBottom:'2rem'}}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="230"
+            image="/img2.png"
+            alt="   sx=green iguana"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Add work location
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
+
  </>
   );
 }

@@ -1,20 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
+import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
+import BACKEND_URL from '../backend';
 
 // import 'leaflet/dist/leaflet.css';
 
 const MapComponent = () => {
+  const [coordinatesArray, setCoordinatesArray] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Sample array of coordinates
-    const coordinatesArray = [
-      { latitude: 37.7749, longitude: -122.4194 }, // San Francisco
-      { latitude: 40.7128, longitude: -74.0060 },  // New York
-      { latitude: 34.0522, longitude: -118.2437 }, // Los Angeles
-      // Add more coordinates as needed
-    ];
+    // Fetch data from the backend using Axios
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/getAllWorkLocation`);
+        // Assuming the response.data is an array of coordinates
+        setCoordinatesArray(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (coordinatesArray.length === 0) return;
 
     // Initialize the map
-    const map = L.map('map').setView([0, 0], 2);
+    const map = L.map('map').setView([coordinatesArray[0].latitude, coordinatesArray[0].longitude], 12);
 
     // Add a tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,9 +51,19 @@ const MapComponent = () => {
     return () => {
       map.remove();
     };
-  }, []); // Empty dependency array to run the effect only once
+  }, [coordinatesArray]);
 
-  return <div id="map" style={{ height: '400px', width: '100%' }} />;
+  return (
+    <div  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px', marginBottom: "1rem" }}>
+      {loading ? (
+        <div>
+          <CircularProgress />
+        </div>
+      ) : (
+        <div id="map" style={{ height: '400px', width: '100%' }} />
+      )}
+    </div>
+  );
 };
 
 export default MapComponent;

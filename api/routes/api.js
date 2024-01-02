@@ -1,6 +1,19 @@
 const router = require("express").Router();
 const Worker = require("../models/Worker");
 const WorkLocation = require("../models/WorkLocation");
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
 
 router.get("/getAllWorkLocation", async (req, res) => {
   try {
@@ -33,10 +46,12 @@ router.get("/getAllWorker", async (req, res) => {
   }
 });
 
-router.post("/addWorker", async (req, res) => {
+router.post("/addWorker", upload.single("profile_pic") ,async (req, res) => {
   try {
+    // console.log(req.file);
+    req.body.profile_pic = req.file.filename;
     const newWorker = new Worker(req.body);
-    console.log(req.body);
+    // console.log(req.body);
     const savedWorker = await newWorker.save();
     res.status(200).json(savedWorker);
     
