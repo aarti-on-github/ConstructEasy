@@ -108,3 +108,19 @@
 h3{
   margin-top: 0;
 }
+.camera-btn{
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+h1{
+  text-align: center;
+}
+.WebcamContainer{
+  display: block;
+  text-align: center;
+  margin: 2rem;
+}
+.CapturedImage{
+  text-align: center;
+}

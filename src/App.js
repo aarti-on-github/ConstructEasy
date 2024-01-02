@@ -7,6 +7,7 @@ import Addworker from './Components/Addworker';
 import WorkerDetails from './Components/WorkerDetails';
 import Test from "./Components/Map"
 import UpdateWorker from './Components/UpdateWorker';
+import Camera from './Components/Camera';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path='/workerdetails'element={<WorkerDetails/>}/>
       <Route path='/test' element={<Test/>}/>
       <Route path='/updateWorker'element={<UpdateWorker/>}/>
+      <Route path='/takeAttendence'element={<Camera/>}/>
      </Routes>
     </BrowserRouter>
   );

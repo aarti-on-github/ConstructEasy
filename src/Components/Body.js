@@ -11,6 +11,7 @@ export default function Body() {
   return (
     <>
     <div className='cards'>
+    <Link to="takeAttendence">
     <Card sx={{ maxWidth:'345px',marginTop:'2rem',marginBottom:'2rem'}}>
       <CardActionArea>
         <CardMedia
@@ -26,6 +27,7 @@ export default function Body() {
         </CardContent>
       </CardActionArea>
     </Card>
+    </Link>
     </div>
     <Link to="workerdetails">
      <Card sx={{ maxWidth: 345,marginTop:'2rem',marginBottom:'2rem' }}>
