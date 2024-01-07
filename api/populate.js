@@ -48,7 +48,7 @@ const createDummyData = async () => {
         address: "789 Elm St",
         contact: 1234567890,
         salary: 50000,
-        profile_pic: "john_doe.jpg",
+        profile_pic: "image.jpg",
         work_location: workLocations[0]._id,
       },
       {
@@ -58,7 +58,7 @@ const createDummyData = async () => {
         address: "101 Pine St",
         contact: 9876543210,
         salary: 60000,
-        profile_pic: "jane_smith.jpg",
+        profile_pic: "image.jpg",
         work_location: workLocations[1]._id,
       },
       // Add more Workers as needed
