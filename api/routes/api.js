@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Worker = require("../models/Worker");
 const WorkLocation = require("../models/WorkLocation");
+const Attendance = require("../models/Attendance");
 const multer = require("multer");
 const path = require("path");
 
@@ -103,5 +104,30 @@ router.delete("/deleteWorker/:id", async (req, res) => {
     res.status(500).json(String(err));
   }
 });
+
+
+router.get("/getAllAttendance", async (req, res) => {
+  try {
+    const attendances = await Attendance.find().populate("worker");
+    res.status(200).json(attendances);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(String(err));
+  }
+}
+);
+
+router.post("/addAttendance", upload.single("img"), async (req, res) => {
+  try {
+    req.body.img = req.file.filename;
+    const newAttendance = new Attendance(req.body);
+    const savedAttendance = await newAttendance.save();
+    res.status(200).json(savedAttendance);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(String(err));
+  }
+});
+
 
 module.exports = router;
