@@ -1,5 +1,6 @@
 const Worker = require("./models/Worker");
 const WorkLocation = require("./models/WorkLocation");
+const Attendance = require("./models/Attendance");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -10,6 +11,10 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const createDummyData = async () => {
   try {
+    // Delete all existing data
+    await Worker.deleteMany({});
+    await WorkLocation.deleteMany({});
+    await Attendance.deleteMany({});
     // Dummy WorkLocations
     const workLocationsData = [
       {

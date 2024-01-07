@@ -1,3 +1,3 @@
-const BACKEND_URL = 'https://sturdy-cod-g9jg66pjggh9694-5000.app.github.dev';
+const BACKEND_URL = 'https://obscure-meme-vj6r7v6vg5vh7xq-5000.app.github.dev';
 
 export default BACKEND_URL;
