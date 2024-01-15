@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 export default function BasicTable({data}) {
   console.log(data);
@@ -38,6 +39,7 @@ export default function BasicTable({data}) {
         </TableBody>
       </Table>
     </TableContainer>
+    <button sx={{margin: 'auto', backgroundColor: "blue", color: "white"}} onClick={() => window.print()}>Print</button>
     </>
   );
 }
